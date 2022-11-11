@@ -1,17 +1,28 @@
 <script setup>
-// vue核心
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
-// 本地代码
 import tabbarData from '@/assets/data/tabbar';
 import { getAssetURL } from '@/utils/get_assets_img';
 
 const currentIndex = ref(0);
+// 监听路由变化时对应的索引
+const route = useRoute();
+watch(route, (newRoute) => {
+  const index = tabbarData.findIndex((item) => item.path === newRoute.path);
+  // 找不到对应索引则退出
+  if (index === -1) return;
+  currentIndex.value = index;
+});
 </script>
 
 <template>
   <div class="tab-bar">
-    <van-tabbar v-model="currentIndex" active-color="var(--primary-color)">
+    <van-tabbar
+      route
+      :model-value="currentIndex"
+      active-color="var(--primary-color)"
+    >
       <van-tabbar-item
         v-for="(tabbarInfo, index) in tabbarData"
         :key="index"

@@ -27,3 +27,17 @@ npm run dev
 ```sh
 npm run build
 ```
+
+### Interface API
+
+获取所有城市名
+
+```
+http://123.207.32.32:1888/api/city/all
+```
+
+获取热门城市
+
+```
+http://123.207.32.32:1888/api/home/hotSuggests
+```
